@@ -82,20 +82,76 @@ function validateNumber(number) {
 }
 
 function validateRadio(radio) {
-    // todo
-
+ const checks = document.querySelectorAll("input[type='radio']");
+ const inputRadio = document.querySelector(".radios");
+ let count = 0;
+ for (const check of checks){
+    if (check.checked){
+    count++
+    }
+ }
+ if(count !== 0){
+            const nameMessage = document.getElementById("check-input-message");
+             if (nameMessage) {
+                 nameMessage.parentElement.removeChild(nameMessage);
+             }
     return true;
+ }else{
+             if (!document.getElementById("check-input-message")) {
+                 const small = document.createElement("small");
+                 small.id = "check-input-message";
+                 small.className = "invalid";
+                 small.innerText = "zaznacz coś";
+                 inputRadio.appendChild(small);
+             }
+     return false;
+ }
 }
 
 function validatePassword(password) {
     // regex do hasła: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
-    // todo
+    const pass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password);
+    const inputPass = document.querySelector("input[name='password']");
 
-    return true;
-}
+    if (pass) {
+            inputPass.className = "";
+            const nameMessage = document.getElementById("pass-input-message");
+            if (nameMessage) {
+                nameMessage.parentElement.removeChild(nameMessage);
+            }
+        } else {
+            inputPass.className = "invalid";
+            if (!document.getElementById("pass-input-message")) {
+                const small = document.createElement("small");
+                small.id = "pass-input-message";
+                small.className = "invalid";
+                small.innerText = "„Hasło” powinno zawierać co najmniej 8 znaków, conajmniej 1 cyfrę, co najmniej 1 wielką literę i co najmniej małą literę";
+                inputPass.parentElement.appendChild(small);
+            }
+        }
+         return pass;
+        }
 
 function validateRepeatedPassword(password, repeatedPassword) {
-    // todo
+    const pass1 = document.querySelector("input[name='password']");
+    const pass2 = document.querySelector("input[name='password2']");
 
-    return true;
+    if (pass1.value === pass2.value){
+        pass2.className = "";
+                const nameMessage = document.getElementById("pass2-input-message");
+                if (nameMessage) {
+                    nameMessage.parentElement.removeChild(nameMessage);
+                }
+    return true
+    }else{
+        pass2.className = "invalid";
+           if (!document.getElementById("pass2-input-message")) {
+           const small = document.createElement("small");
+           small.id = "pass2-input-message";
+           small.className = "invalid";
+           small.innerText = "Hasło i powtórzone hasło nie są takie same ";
+           pass2.parentElement.appendChild(small);
+    }
+}
+    return false;
 }

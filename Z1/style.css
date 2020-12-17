@@ -78,3 +78,9 @@ input.invalid {
     border-color: red;
     color: black;
 }
+
+@media (max-width: 700px) {
+  .column.half-column {
+      width: 100%;
+  }
+}
